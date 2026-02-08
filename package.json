@@ -1,7 +1,7 @@
 {
-  "name": "@oldmutual/xray-test-automation",
+  "name": "@xray-tools/test-automation",
   "version": "1.0.0",
-  "description": "Automated Xray test case creation and execution management for Old Mutual JIRA projects. Supports automated test type creation with steps, test executions, and CI/CD pipeline integration.",
+  "description": "Automated Xray test case creation and execution management for Jira projects. Supports automated test type creation with steps, test executions, test plans, and CI/CD pipeline integration.",
   "main": "index.js",
   "scripts": {
     "start": "node createXrayTest.js",
@@ -14,25 +14,29 @@
     "jira",
     "testing",
     "automation",
-    "oldmutual",
     "test-management",
     "ci-cd",
     "quality-assurance",
     "xray-cloud",
     "test-automation",
-    "jira-integration"
+    "jira-integration",
+    "playwright",
+    "cypress",
+    "cucumber",
+    "gherkin",
+    "api-testing"
   ],
-  "author": "Old Mutual API COE <api-coe@oldmutual.com>",
-  "license": "UNLICENSED",
+  "author": "Muhaymien <muhaymien96@github.com>",
+  "license": "MIT",
   "type": "commonjs",
   "repository": {
     "type": "git",
-    "url": "https://dev.azure.com/OMEngineering/API%20COE/_git/xray-test-generator"
+    "url": "https://github.com/muhaymien96/xray-test-automation"
   },
   "bugs": {
-    "url": "https://dev.azure.com/OMEngineering/API%20COE/_git/xray-test-generator/issues"
+    "url": "https://github.com/muhaymien96/xray-test-automation/issues"
   },
-  "homepage": "https://dev.azure.com/OMEngineering/API%20COE/_git/xray-test-generator",
+  "homepage": "https://github.com/muhaymien96/xray-test-automation#readme",
   "dependencies": {
     "axios": "^1.13.4",
     "dotenv": "^17.2.3"
@@ -46,7 +50,6 @@
     "createXrayTest.js",
     "scripts/",
     "README.md",
-    ".env.example",
-    ".npmrc.example"
+    ".env.example"
   ]
 }

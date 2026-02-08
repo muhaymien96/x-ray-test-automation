@@ -1,7 +1,7 @@
 /**
- * @oldmutual/xray-test-automation
+ * @xray-tools/test-automation
  * 
- * Automated Xray test case creation and execution management for Old Mutual JIRA projects
+ * Automated Xray test case creation and execution management for Jira projects
  */
 
 require("dotenv").config();
@@ -102,7 +102,7 @@ async function setTestTypeAndSteps(xrayToken, issueId, steps) {
     }
   } catch (err) {
     const errorMsg = err.response?.data ? JSON.stringify(err.response.data) : err.message;
-    
+
     // Detect user authentication mismatch
     if (errorMsg.includes('disallowed to impersonate') || errorMsg.includes('no valid active user exists')) {
       throw new Error(
@@ -119,7 +119,7 @@ async function setTestTypeAndSteps(xrayToken, issueId, steps) {
         `Original error: ${errorMsg}`
       );
     }
-    
+
     throw new Error(`Failed to set test type: ${errorMsg}`);
   }
 
@@ -148,14 +148,14 @@ async function setTestTypeAndSteps(xrayToken, issueId, steps) {
       }
     } catch (err) {
       const errorMsg = err.response?.data ? JSON.stringify(err.response.data) : err.message;
-      
+
       // Detect user authentication mismatch
       if (errorMsg.includes('disallowed to impersonate') || errorMsg.includes('no valid active user exists')) {
         throw new Error(
           `Xray user authentication mismatch. Ensure JIRA_EMAIL (${process.env.JIRA_EMAIL}) matches the Xray API Key owner. See README troubleshooting section.`
         );
       }
-      
+
       throw new Error(`Failed to add step: ${errorMsg}`);
     }
   }
@@ -247,7 +247,7 @@ async function linkTestsToExecution(testExecutionKey, testKeys) {
  * @returns {Object} Result containing created test keys and execution key
  */
 async function createTestsAndExecution(config) {
-  console.log("🚀 Old Mutual Xray Test Automation\n");
+  console.log("🚀 Xray Test Automation\n");
 
   // Validate environment
   const required = ["XRAY_ID", "XRAY_SECRET", "JIRA_PROJECT_KEY", "JIRA_EMAIL", "JIRA_API_TOKEN", "JIRA_URL"];
@@ -270,7 +270,7 @@ async function createTestsAndExecution(config) {
 
   const createdTests = [];
   const mappingPath = path.join(__dirname, "xray-mapping.json");
-  
+
   // Load existing mapping if it exists
   let mapping = {};
   if (fs.existsSync(mappingPath)) {
@@ -297,7 +297,7 @@ async function createTestsAndExecution(config) {
         let retryCount = 0;
         const maxRetries = 5;
         const baseDelay = 2000; // 2 seconds
-        
+
         while (retryCount < maxRetries) {
           try {
             const delay = baseDelay * Math.pow(2, retryCount); // Exponential backoff: 2s, 4s, 8s, 16s, 32s
@@ -305,7 +305,7 @@ async function createTestsAndExecution(config) {
               console.log(`   ⏳ Retry ${retryCount}/${maxRetries - 1} after ${delay}ms...`);
             }
             await new Promise(resolve => setTimeout(resolve, delay));
-            
+
             await setTestTypeAndSteps(xrayToken, issueId, test.xray.steps);
             console.log(`   ✅ ${test.xray.steps.length} step(s) added`);
             break; // Success, exit retry loop
@@ -327,10 +327,10 @@ async function createTestsAndExecution(config) {
 
       mapping[test.test_id] = { key: key, id: issueId };
       createdTests.push(key);
-      
+
       // Save mapping after each successful test creation
       fs.writeFileSync(mappingPath, JSON.stringify(mapping, null, 2));
-      
+
       console.log("");
 
       // Rate limiting
@@ -347,12 +347,12 @@ async function createTestsAndExecution(config) {
   let testExecutionKey = null;
   if (createdTests.length > 0 && testExecutionConfig) {
     console.log(`📌 Creating Test Execution: "${testExecutionConfig.summary}"...`);
-    
+
     const execution = await createTestExecution(
       testExecutionConfig.summary,
       testExecutionConfig.description || testExecutionConfig.summary
     );
-    
+
     testExecutionKey = execution.key;
     mapping._testexecution = { key: testExecutionKey, id: execution.id };
     console.log(`   ✅ ${testExecutionKey}`);

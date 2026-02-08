@@ -1,10 +1,11 @@
-# @oldmutual/xray-test-automation
+# @xray-tools/test-automation
 
-> **Automated Xray test case creation and execution management for Old Mutual JIRA projects.**
+> **Automated Xray test case creation and execution management for Jira projects.**
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](package.json)
-[![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](package.json)
-[![License](https://img.shields.io/badge/license-UNLICENSED-red.svg)](package.json)
+[![Version](https://img.shields.io/npm/v/@xray-tools/test-automation.svg)](https://www.npmjs.com/package/@xray-tools/test-automation)
+[![Downloads](https://img.shields.io/npm/dm/@xray-tools/test-automation.svg)](https://www.npmjs.com/package/@xray-tools/test-automation)
+[![License](https://img.shields.io/npm/l/@xray-tools/test-automation.svg)](LICENSE)
+[![Node](https://img.shields.io/node/v/@xray-tools/test-automation.svg)](package.json)
 
 ## Table of Contents
 
@@ -22,26 +23,25 @@
 - [API Reference](#api-reference)
 - [Examples](#examples)
 - [Troubleshooting](#troubleshooting)
-- [Development](#development)
-- [Publishing](#publishing)
-- [Support](#support)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
 ## Overview
 
-This package provides automated creation and management of Xray test cases within Old Mutual's JIRA ecosystem. It is designed for **all teams across Old Mutual** who need to manage test cases efficiently, supporting both automated testing workflows and manual test documentation.
+This package provides automated creation and management of Xray test cases within Jira. It is designed for **QA teams, developers, and DevOps engineers** who need to manage test cases efficiently, supporting both automated testing workflows and manual test documentation.
 
 **What it does:**
-- ✅ Creates Xray **Automated** Test cases in JIRA
+- ✅ Creates Xray **Automated** Test cases in Jira
 - ✅ Adds detailed test steps with actions, data, and expected results
 - ✅ Creates Test Executions for organizing test runs
 - ✅ Links tests to executions automatically
-- ✅ Generates test-to-JIRA key mappings for CI/CD integration
+- ✅ Generates test-to-Jira key mappings for CI/CD integration
 - ✅ Saves mapping incrementally to prevent data loss
 - ✅ Supports bulk test creation with error handling
 
-**Use cases across Old Mutual:**
+**Use cases:**
 - **API Teams:** Creating test cases from API specifications (OpenAPI/Swagger)
 - **QA Teams:** Synchronizing automated UI/functional test suites with Xray
 - **DevOps Teams:** Managing test executions across multiple releases and environments
@@ -72,7 +72,7 @@ Tests are created as **Automated** type in Xray, suitable for:
 - Comprehensive logging for debugging
 
 ### Enterprise-Ready
-- Works with Old Mutual's corporate proxy
+- Works with corporate proxies
 - Supports Xray Cloud data residency (US/EU/AU)
 - Rate limiting compliant (300 requests per 5 minutes)
 - Secure credential management via environment variables
@@ -86,22 +86,22 @@ Tests are created as **Automated** type in Xray, suitable for:
 | **Node.js** | >= 18.0.0 | Runtime environment |
 | **npm** | >= 8.0.0 | Package manager |
 | **Xray API Key** | - | Authentication for Xray GraphQL API |
-| **JIRA API Token** | - | Authentication for JIRA REST API |
-| **JIRA Permissions** | Test creation rights | Create Test and Test Execution issues |
+| **Jira API Token** | - | Authentication for Jira REST API |
+| **Jira Permissions** | Test creation rights | Create Test and Test Execution issues |
 
 ### Obtaining Credentials
 
-⚠️ **CRITICAL REQUIREMENT:** All credentials must be created by the **same JIRA user**. The Xray API Key owner must match the JIRA API Token owner.
+⚠️ **CRITICAL REQUIREMENT:** All credentials must be created by the **same Jira user**. The Xray API Key owner must match the Jira API Token owner.
 
 #### Xray API Key (Client ID & Secret)
-1. **Log in to JIRA** with the account you'll use for automation
-2. Navigate to JIRA → ⚙️ Settings → Apps → Xray Settings
+1. **Log in to Jira** with the account you'll use for automation
+2. Navigate to Jira → ⚙️ Settings → Apps → Xray Settings
 3. Go to **API Keys** (Global Settings)
 4. Click **Create API Key**
 5. Save the **Client ID** and **Client Secret**
 6. **Remember:** Note which user created this key
 
-#### JIRA API Token
+#### Jira API Token
 1. **Stay logged in as the same user** from above
 2. Go to [Atlassian Account Security](https://id.atlassian.com/manage-profile/security/api-tokens)
 3. Click **Create API token**
@@ -112,26 +112,26 @@ Tests are created as **Automated** type in Xray, suitable for:
 #### Verify User Match
 Both credentials should be from the same user:
 ```
-✅ Xray API Key created by: john.doe@oldmutual.com
-✅ JIRA API Token created by: john.doe@oldmutual.com
-✅ JIRA_EMAIL in .env: john.doe@oldmutual.com
+✅ Xray API Key created by: john.doe@company.com
+✅ Jira API Token created by: john.doe@company.com
+✅ JIRA_EMAIL in .env: john.doe@company.com
 ```
 
 ---
 
 ## Installation
 
-### From Old Mutual Azure Artifacts Registry
+### From npm Registry
 
 ```bash
-npm install @oldmutual/xray-test-automation
+npm install @xray-tools/test-automation
 ```
 
 ### For Development / Local Testing
 
 ```bash
-git clone https://dev.azure.com/OMEngineering/API%20COE/_git/xray-test-generator
-cd xray-test-generator
+git clone https://github.com/muhaymien96/xray-test-automation
+cd xray-test-automation
 npm install
 ```
 
@@ -159,13 +159,13 @@ XRAY_SECRET="your_xray_client_secret_here"
 # Optional: Xray GraphQL endpoint region (us/eu/au) - defaults to US
 # XRAY_GRAPHQL_URL="https://us.xray.cloud.getxray.app/api/v2/graphql"
 
-# JIRA Project Configuration
-JIRA_PROJECT_KEY=APIEE
+# Jira Project Configuration
+JIRA_PROJECT_KEY=PROJ
 
-# JIRA Authentication
-JIRA_URL="https://oldmutual.atlassian.net"
+# Jira Authentication
+JIRA_URL="https://your-company.atlassian.net"
 JIRA_API_TOKEN="your_jira_api_token_here"
-JIRA_EMAIL="your.email@oldmutual.com"
+JIRA_EMAIL="your.email@company.com"
 ```
 
 ### 3. Configuration for Data Residency
@@ -184,7 +184,7 @@ XRAY_GRAPHQL_URL="https://au.xray.cloud.getxray.app/api/v2/graphql"
 
 ⚠️ **NEVER commit `.env` to version control**
 
-The `.npmignore` and `.gitignore` files are preconfigured to exclude credentials.
+The `.gitignore` file is preconfigured to exclude credentials.
 
 ---
 
@@ -213,12 +213,12 @@ Create `tests.json` in your project root:
         "steps": [
           {
             "action": "Navigate to login page",
-            "data": "URL: https://portal.oldmutual.com/login",
+            "data": "URL: https://portal.example.com/login",
             "expected_result": "Login page is displayed with username and password fields"
           },
           {
             "action": "Enter valid username and password",
-            "data": "Username: testuser@oldmutual.com, Password: ValidPass123",
+            "data": "Username: testuser@example.com, Password: ValidPass123",
             "expected_result": "Credentials are accepted"
           },
           {
@@ -239,7 +239,7 @@ Create `tests.json` in your project root:
         "steps": [
           {
             "action": "Enter search term in search box",
-            "data": "Search term: 'life insurance'",
+            "data": "Search term: 'product name'",
             "expected_result": "Search suggestions appear as user types"
           },
           {
@@ -265,7 +265,7 @@ npm run create
 #### 3. View Results
 
 ```
-🚀 Old Mutual Xray Test Automation
+🚀 Xray Test Automation
 
 📋 Creating 2 test(s)...
 
@@ -289,7 +289,7 @@ npm run create
 
 💾 Test mapping saved to xray-mapping.json
 
-🔗 View Test Execution: https://oldmutual.atlassian.net/browse/PROJ-1240
+🔗 View Test Execution: https://your-company.atlassian.net/browse/PROJ-1240
 ```
 
 ---
@@ -300,7 +300,7 @@ npm run create
 
 ```javascript
 require('dotenv').config();
-const { createTestsAndExecution } = require('@oldmutual/xray-test-automation');
+const { createTestsAndExecution } = require('@xray-tools/test-automation');
 const fs = require('fs');
 
 async function createTests() {
@@ -332,7 +332,7 @@ const {
   createTestExecution,
   linkTestsToExecution,
   getXrayToken
-} = require('@oldmutual/xray-test-automation');
+} = require('@xray-tools/test-automation');
 
 async function customWorkflow() {
   // Authenticate once
@@ -368,54 +368,6 @@ customWorkflow();
 
 ### CI/CD Pipeline Integration
 
-#### Azure DevOps Pipeline Example
-
-```yaml
-trigger:
-  - main
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-variables:
-  - group: xray-credentials  # Variable group containing XRAY_ID, XRAY_SECRET, JIRA_API_TOKEN
-
-stages:
-  - stage: CreateXrayTests
-    displayName: 'Create Xray Test Cases'
-    jobs:
-      - job: SyncTests
-        displayName: 'Sync Tests to Xray'
-        steps:
-          - task: NodeTool@0
-            inputs:
-              versionSpec: '18.x'
-            displayName: 'Install Node.js'
-
-          - script: |
-              npm install @oldmutual/xray-test-automation
-            displayName: 'Install Xray Automation Package'
-
-          - script: |
-              echo "XRAY_ID=$(XRAY_ID)" >> .env
-              echo "XRAY_SECRET=$(XRAY_SECRET)" >> .env
-              echo "JIRA_PROJECT_KEY=APIEE" >> .env
-              echo "JIRA_URL=https://oldmutual.atlassian.net" >> .env
-              echo "JIRA_API_TOKEN=$(JIRA_API_TOKEN)" >> .env
-              echo "JIRA_EMAIL=$(JIRA_EMAIL)" >> .env
-            displayName: 'Create .env file'
-
-          - script: |
-              node create-xray-tests.js
-            displayName: 'Create Xray Tests'
-
-          - task: PublishBuildArtifacts@1
-            inputs:
-              PathtoPublish: 'xray-mapping.json'
-              ArtifactName: 'xray-mapping'
-            displayName: 'Publish Test Mapping'
-```
-
 #### GitHub Actions Example
 
 ```yaml
@@ -440,14 +392,14 @@ jobs:
           node-version: '18'
           
       - name: Install dependencies
-        run: npm install @oldmutual/xray-test-automation
+        run: npm install @xray-tools/test-automation
         
       - name: Create .env file
         run: |
           echo "XRAY_ID=${{ secrets.XRAY_ID }}" >> .env
           echo "XRAY_SECRET=${{ secrets.XRAY_SECRET }}" >> .env
-          echo "JIRA_PROJECT_KEY=APIEE" >> .env
-          echo "JIRA_URL=https://oldmutual.atlassian.net" >> .env
+          echo "JIRA_PROJECT_KEY=PROJ" >> .env
+          echo "JIRA_URL=${{ secrets.JIRA_URL }}" >> .env
           echo "JIRA_API_TOKEN=${{ secrets.JIRA_API_TOKEN }}" >> .env
           echo "JIRA_EMAIL=${{ secrets.JIRA_EMAIL }}" >> .env
           
@@ -459,6 +411,36 @@ jobs:
         with:
           name: xray-mapping
           path: xray-mapping.json
+```
+
+#### GitLab CI Example
+
+```yaml
+stages:
+  - sync
+
+sync-xray:
+  stage: sync
+  image: node:18
+  only:
+    changes:
+      - tests.json
+  script:
+    - npm install @xray-tools/test-automation
+    - |
+      cat > .env << EOF
+      XRAY_ID=${XRAY_ID}
+      XRAY_SECRET=${XRAY_SECRET}
+      JIRA_PROJECT_KEY=PROJ
+      JIRA_URL=${JIRA_URL}
+      JIRA_API_TOKEN=${JIRA_API_TOKEN}
+      JIRA_EMAIL=${JIRA_EMAIL}
+      EOF
+    - node create-xray-tests.js
+  artifacts:
+    paths:
+      - xray-mapping.json
+    expire_in: 30 days
 ```
 
 ---
@@ -478,8 +460,8 @@ interface TestConfig {
     xray: {
       summary: string;        // Test case title (required)
       description?: string;   // Test case description
-      priority?: "Highest" | "High" | "Medium" | "Low" | "Lowest"; // JIRA priority
-      labels?: string[];      // JIRA labels for categorization
+      priority?: "Highest" | "High" | "Medium" | "Low" | "Lowest"; // Jira priority
+      labels?: string[];      // Jira labels for categorization
       steps?: Array<{
         action: string;         // What to do
         data?: string;          // Test data or parameters
@@ -495,10 +477,10 @@ interface TestConfig {
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
 | `test_id` | string | Yes | Unique identifier for mapping | `"TC-API-001"` |
-| `xray.summary` | string | Yes | Test case title in JIRA | `"Verify user login"` |
+| `xray.summary` | string | Yes | Test case title in Jira | `"Verify user login"` |
 | `xray.description` | string | No | Detailed description | `"Test POST /api/auth/login..."` |
-| `xray.priority` | string | No | JIRA priority level | `"High"` |
-| `xray.labels` | string[] | No | JIRA labels for organization | `["API", "Auth"]` |
+| `xray.priority` | string | No | Jira priority level | `"High"` |
+| `xray.labels` | string[] | No | Jira labels for organization | `["API", "Auth"]` |
 | `xray.steps` | array | No | Test steps (if omitted, test has no steps) | See below |
 | `step.action` | string | Yes* | Action to perform | `"Send GET request"` |
 | `step.data` | string | No | Test data/parameters | `"clientNo=123456789"` |
@@ -512,7 +494,7 @@ interface TestConfig {
 
 ### xray-mapping.json
 
-Generated after each test creation. Maps your test IDs to JIRA keys and numeric IDs:
+Generated after each test creation. Maps your test IDs to Jira keys and numeric IDs:
 
 ```json
 {
@@ -527,14 +509,6 @@ Generated after each test creation. Maps your test IDs to JIRA keys and numeric 
   "TC-SEARCH-001": {
     "key": "PROJ-1235",
     "id": "1234561"
-  },
-  "TC-PROFILE-001": {
-    "key": "PROJ-1236",
-    "id": "1234562"
-  },
-  "TC-CHECKOUT-001": {
-    "key": "PROJ-1237",
-    "id": "1234563"
   }
 }
 ```
@@ -544,7 +518,7 @@ Generated after each test creation. Maps your test IDs to JIRA keys and numeric 
 ```javascript
 const mapping = require('./xray-mapping.json');
 
-// Get JIRA key and ID for a specific test
+// Get Jira key and ID for a specific test
 const testInfo = mapping['TC-LOGIN-001'];
 console.log(`Test key: ${testInfo.key}`); // PROJ-1234
 console.log(`Test ID: ${testInfo.id}`);   // 1234560
@@ -552,22 +526,19 @@ console.log(`Test ID: ${testInfo.id}`);   // 1234560
 // Get Test Execution key and ID
 const executionInfo = mapping._testexecution;
 console.log(`Execution key: ${executionInfo.key}`); // PROJ-1240
-console.log(`Execution ID: ${executionInfo.id}`);   // 1234567
 ```
 
 **Why it's useful:**
 - Update test execution results programmatically
 - Link test artifacts (screenshots, logs, videos)
 - Track test coverage across releases
-- Generate test reports with JIRA references
+- Generate test reports with Jira references
 
 ---
 
 ## API Reference
 
 ### Exported Functions
-
-The package exports the following functions for programmatic use:
 
 #### `createTestsAndExecution(config)`
 
@@ -581,15 +552,15 @@ Creates all tests and a test execution, then links them together.
 **Returns:** `Promise<Object>`
 ```javascript
 {
-  tests: string[],        // Array of created test keys: ["APIEE-6895", "APIEE-6896"]
-  testExecution: string,  // Test execution key: "APIEE-6900"
-  mapping: Object        // Complete test ID to JIRA key mapping
+  tests: string[],        // Array of created test keys: ["PROJ-6895", "PROJ-6896"]
+  testExecution: string,  // Test execution key: "PROJ-6900"
+  mapping: Object        // Complete test ID to Jira key mapping
 }
 ```
 
 **Example:**
 ```javascript
-const { createTestsAndExecution } = require('@oldmutual/xray-test-automation');
+const { createTestsAndExecution } = require('@xray-tools/test-automation');
 
 const result = await createTestsAndExecution({
   testExecution: {
@@ -608,15 +579,15 @@ const result = await createTestsAndExecution({
   ]
 });
 
-console.log(result.tests);         // ["APIEE-7001"]
-console.log(result.testExecution); // "APIEE-7010"
+console.log(result.tests);         // ["PROJ-7001"]
+console.log(result.testExecution); // "PROJ-7010"
 ```
 
 ---
 
 #### `createJiraTestIssue(test)`
 
-Creates a single Xray Test issue in JIRA.
+Creates a single Xray Test issue in Jira.
 
 **Parameters:**
 - `test` (Object): Test definition object with `xray` property
@@ -624,14 +595,14 @@ Creates a single Xray Test issue in JIRA.
 **Returns:** `Promise<Object>`
 ```javascript
 {
-  key: string,    // JIRA issue key: "APIEE-6895"
-  id: string      // JIRA issue ID: "12345"
+  key: string,    // Jira issue key: "PROJ-6895"
+  id: string      // Jira issue ID: "12345"
 }
 ```
 
 **Example:**
 ```javascript
-const { createJiraTestIssue } = require('@oldmutual/xray-test-automation');
+const { createJiraTestIssue } = require('@xray-tools/test-automation');
 
 const test = await createJiraTestIssue({
   xray: {
@@ -642,14 +613,14 @@ const test = await createJiraTestIssue({
   }
 });
 
-console.log(`Created test: ${test.key}`); // APIEE-6895
+console.log(`Created test: ${test.key}`); // PROJ-6895
 ```
 
 ---
 
 #### `createTestExecution(summary, description)`
 
-Creates a Test Execution issue in JIRA.
+Creates a Test Execution issue in Jira.
 
 **Parameters:**
 - `summary` (string): Test Execution title
@@ -658,21 +629,21 @@ Creates a Test Execution issue in JIRA.
 **Returns:** `Promise<Object>`
 ```javascript
 {
-  key: string,    // Test Execution key: "APIEE-6900"
+  key: string,    // Test Execution key: "PROJ-6900"
   id: string      // Test Execution ID: "12350"
 }
 ```
 
 **Example:**
 ```javascript
-const { createTestExecution } = require('@oldmutual/xray-test-automation');
+const { createTestExecution } = require('@xray-tools/test-automation');
 
 const execution = await createTestExecution(
   "Sprint 24 - Authentication Tests",
   "Automated tests for auth endpoints including login, logout, and token refresh"
 );
 
-console.log(`Created execution: ${execution.key}`); // APIEE-6900
+console.log(`Created execution: ${execution.key}`); // PROJ-6900
 ```
 
 ---
@@ -682,18 +653,18 @@ console.log(`Created execution: ${execution.key}`); // APIEE-6900
 Links existing tests to a test execution.
 
 **Parameters:**
-- `testExecutionKey` (string): JIRA key of the Test Execution
-- `testKeys` (string[]): Array of test JIRA keys to link
+- `testExecutionKey` (string): Jira key of the Test Execution
+- `testKeys` (string[]): Array of test Jira keys to link
 
 **Returns:** `Promise<string[]>` - Array of successfully linked test keys
 
 **Example:**
 ```javascript
-const { linkTestsToExecution } = require('@oldmutual/xray-test-automation');
+const { linkTestsToExecution } = require('@xray-tools/test-automation');
 
 const linked = await linkTestsToExecution(
-  "APIEE-6900",
-  ["APIEE-6895", "APIEE-6896", "APIEE-6897"]
+  "PROJ-6900",
+  ["PROJ-6895", "PROJ-6896", "PROJ-6897"]
 );
 
 console.log(`Linked ${linked.length} tests`); // Linked 3 tests
@@ -711,7 +682,7 @@ Authenticates with Xray Cloud and returns a JWT token.
 
 **Example:**
 ```javascript
-const { getXrayToken } = require('@oldmutual/xray-test-automation');
+const { getXrayToken } = require('@xray-tools/test-automation');
 
 const token = await getXrayToken();
 console.log('Authenticated with Xray'); 
@@ -722,488 +693,113 @@ console.log('Authenticated with Xray');
 
 ## Examples
 
-### Example 1: Create Tests from Test Scenarios Document
+See the [examples](examples/) directory for more usage examples:
 
-```javascript
-require('dotenv').config();
-const { createTestsAndExecution } = require('@oldmutual/xray-test-automation');
-const fs = require('fs');
-
-// Example: Generate tests from a CSV or formatted document
-async function generateTestsFromDocument() {
-  const scenarios = [
-    {
-      id: 'TC-QUOTE-001',
-      summary: 'Calculate life insurance quote for age 30-40',
-      priority: 'High',
-      category: 'Quotes',
-      steps: [
-        { action: 'Enter customer age: 35', data: 'Age: 35', expected: 'Age accepted' },
-        { action: 'Select product: Life Cover', data: 'Product: Life', expected: 'Product selected' },
-        { action: 'Enter coverage amount: R1,000,000', data: 'Amount: 1000000', expected: 'Amount validated' },
-        { action: 'Click Calculate Quote', data: 'Button: Calculate', expected: 'Quote displayed with monthly premium' }
-      ]
-    },
-    {
-      id: 'TC-CLAIM-001',
-      summary: 'Submit death claim with required documents',
-      priority: 'Critical',
-      category: 'Claims',
-      steps: [
-        { action: 'Navigate to claims section', data: 'Menu: Claims', expected: 'Claims page displayed' },
-        { action: 'Upload death certificate', data: 'File: certificate.pdf', expected: 'Document uploaded successfully' },
-        { action: 'Complete beneficiary details', data: 'Name, ID, Bank details', expected: 'Details saved' },
-        { action: 'Submit claim', data: 'Button: Submit', expected: 'Claim reference number generated' }
-      ]
-    }
-  ];
-  
-  const tests = scenarios.map(scenario => ({
-    test_id: scenario.id,
-    xray: {
-      summary: scenario.summary,
-      priority: scenario.priority,
-      labels: [scenario.category, 'Automated', 'Regression'],
-      steps: scenario.steps.map(step => ({
-        action: step.action,
-        data: step.data,
-        expected_result: step.expected
-      }))
-    }
-  }));
-  
-  const result = await createTestsAndExecution({
-    testExecution: {
-      summary: 'Business Scenarios - Sprint 24',
-      description: 'Automated tests for core business workflows'
-    },
-    tests
-  });
-  
-  console.log(`Created ${result.tests.length} tests from scenarios`);
-}
-
-generateTestsFromDocument();
-```
-
----
-
-### Example 2: Bulk Update Test Statuses (After Test Run)
-
-```javascript
-require('dotenv').config();
-const axios = require('axios');
-const mapping = require('./xray-mapping.json');
-
-async function updateTestResults(testResults) {
-  const auth = Buffer.from(
-    `${process.env.JIRA_EMAIL}:${process.env.JIRA_API_TOKEN}`
-  ).toString('base64');
-  
-  for (const [testId, result] of Object.entries(testResults)) {
-    const testInfo = mapping[testId];
-    if (!testInfo) continue;
-    
-    // Update test run status via Xray REST API
-    await axios.post(
-      `${process.env.JIRA_URL}/rest/raven/2.0/import/execution`,
-      {
-        testExecutionKey: mapping._testexecution.key,
-        tests: [{
-          testKey: testInfo.key,
-          status: result.status,  // PASS, FAIL, EXECUTING, etc.
-          comment: result.error || ''
-        }]
-      },
-      {
-        headers: { Authorization: `Basic ${auth}` }
-      }
-    );
-    
-    console.log(`✅ Updated ${testInfo.key}: ${result.status}`);
-  }
-}
-
-// Example usage - works with any test framework results
-updateTestResults({
-  "TC-LOGIN-001": { status: "PASS", error: "" },
-  "TC-SEARCH-001": { status: "PASS", error: "" },
-  "TC-QUOTE-001": { status: "FAIL", error: "Premium calculation mismatch" }
-});
-```
-
----
-
-### Example 3: Create Tests for Existing Playwright Suite
-
-```javascript
-require('dotenv').config();
-const { createTestsAndExecution } = require('@oldmutual/xray-test-automation');
-const fs = require('fs');
-const path = require('path');
-
-async function syncPlaywrightTests() {
-  const testFiles = fs.readdirSync('./tests')
-    .filter(f => f.endsWith('.spec.ts'));
-  
-  const tests = testFiles.map(file => {
-    const content = fs.readFileSync(`./tests/${file}`, 'utf8');
-    const testName = path.basename(file, '.spec.ts');
-    
-    // Extract test.describe blocks (simple regex example)
-    const describes = content.match(/test\.describe\(['"`](.+?)['"`]/g) || [];
-    
-    return {
-      test_id: `TC-${testName}`,
-      xray: {
-        summary: describes[0]?.replace(/test\.describe\(['"`]|['"`]/g, '') || testName,
-        description: `Automated Playwright test: ${file}`,
-        labels: ["Playw', 'UI", "Automated"],
-        priority: "Medium"
-      }
-    };
-  });
-  
-  const result = await createTestsAndExecution({
-    testExecution: {
-      summary: "Playwright UI Test Suite",
-      description: "Automated UI tests using Playwright framework"
-    },
-    tests
-  });
-  
-  console.log(`Synced ${result.tests.length} Playwright tests to Xray`);
-}
-
-syncPlaywrightTests();
-```
+- **Basic Usage** - Simple test creation
+- **Multi-Project** - Managing tests across multiple projects
+- **Playwright Integration** - Integrating with Playwright tests
+- **Cucumber Import** - Importing from Cucumber features
+- **CI/CD Integration** - GitHub Actions, GitLab CI, Jenkins
 
 ---
 
 ## Troubleshooting
 
-### Authentication Errors
+### Common Issues
 
-**Error:** `Incorrect or missing password` or `401 Unauthorized`
+#### Issue 1: "Missing environment variables"
 
-**Solutions:**
-1. Verify `.env` file exists and has correct values
-2. Ensure `XRAY_ID` and `XRAY_SECRET` are from Xray API Keys (not JIRA credentials)
-3. Ensure `JIRA_API_TOKEN` is an API token, not your password
-4. Check `JIRA_EMAIL` matches your Atlassian account email
-5. Regenerate API tokens if they're old or compromised
-
----
-
-### User Authentication Mismatch (Xray Impersonation Error)
-
-**Error:** `Add-on 'com.xblend.plugins.xray-enterprise' disallowed to impersonate the user because 'no valid active user exists'`
-
-**Cause:** The Xray API Key owner doesn't match the JIRA API Token user.
-
-**Solutions:**
-
-1. **Verify User Match:**
-   ```bash
-   # Check who owns the Xray API Key
-   # In JIRA: Settings → Apps → Xray Settings → API Keys
-   # The listed user MUST match your JIRA_EMAIL in .env
-   ```
-
-2. **Ensure Same User for All Credentials:**
-   - `XRAY_ID` + `XRAY_SECRET`: Created by User A
-   - `JIRA_API_TOKEN`: Created by **same User A**
-   - `JIRA_EMAIL`: Email of **same User A**
-
-3. **Check Xray License Assignment:**
-   - Verify you have an active Xray license assigned
-   - Contact your JIRA administrator if not
-
-4. **Regenerate Credentials (Recommended):**
-   ```
-   Step 1: Log in to JIRA as the user who will run the automation
-   Step 2: Create Xray API Key (Settings → Apps → Xray Settings → API Keys)
-   Step 3: Create JIRA API Token (https://id.atlassian.com/manage-profile/security/api-tokens)
-   Step 4: Update .env with matching credentials
-   ```
-
-5. **Alternative: Use Service Account:**
-   - Create a dedicated service account in JIRA
-   - Assign Xray license to service account
-   - Generate both API keys from service account
-   - Use service account email in `JIRA_EMAIL`
-
-**Example of Correct Configuration:**
-```env
-# All credentials from the same user: john.doe@oldmutual.com
-XRAY_ID="ABC123..."              # Created by john.doe@oldmutual.com
-XRAY_SECRET="XYZ789..."          # Created by john.doe@oldmutual.com
-JIRA_API_TOKEN="ATATT..."        # Created by john.doe@oldmutual.com
-JIRA_EMAIL="john.doe@oldmutual.com"  # Same user
+**Error:**
 ```
-
----
-
-### GraphQL Errors
-
-**Error:** `Field "updateTestType" must have a selection of subfields`
-
-**Solution:** This is fixed in v1.0.0+. Update to the latest version:
-```bash
-npm update @oldmutual/xray-test-automation
+Missing environment variables: XRAY_ID, JIRA_API_TOKEN
 ```
-
-**Error:** `Variable "$testType" got invalid value`
-
-**Solution:** Ensure you're using the correct test type. Valid values:
-- `"Automated"` (default, for CI/CD)
-- `"Manual"` (for manual testing)
-- `"Generic"` (for unstructured tests)
-- `"Cucumber"` (for Gherkin tests)
-
----
-
-**Error:** `issueId provided is not valid` or `errorMessages: ["issueId provided is not valid"]`
-
-**Cause:** Xray's GraphQL API hasn't indexed the newly created test yet.
-
-**Solution:** Version 1.0.0+ includes automatic retry logic with exponential backoff (2s, 4s, 8s, 16s, 32s) to handle varying indexing times. The package will:
-
-1. **Automatically retry up to 5 times** with increasing delays
-2. **Display retry progress:** `⏳ Retry 1/4 after 4000ms...`
-3. **Succeed once Xray indexes the test** (usually within 2-8 seconds)
-
-If tests still fail after 5 retries:
-
-1. **Check JIRA instance performance:**
-   - Is your JIRA instance under heavy load?
-   - Are there ongoing maintenance windows?
-   - Try running during off-peak hours
-
-2. **Verify the test exists:**
-   - Check JIRA - the test should exist with the shown key
-   - Check `xray-mapping.json` for the mapping
-
-3. **Adjust retry settings (advanced):**
-   - Edit `index.js` line ~294 to increase `maxRetries` or `baseDelay`
-   - Consider creating tests in smaller batches
-
----
-
-### Tests Created But Not Linked
-
-**Symptoms:** Tests appear in JIRA but aren't linked to Test Execution
-
-**Solutions:**
-1. Check `xray-mapping.json` for created test keys
-2. Use manual linking script:
-   ```bash
-   # Edit scripts/link-tests.json with your keys
-   npm run link
-   ```
-3. Increase indexing wait time in your code:
-   ```javascript
-   await new Promise(resolve => setTimeout(resolve, 5000)); // Wait 5 seconds
-   ```
-
----
-
-### SSL/Proxy Errors
-
-**Error:** `unable to verify the first certificate`
-
-**Solution:**  
-The package is configured for Old Mutual's corporate proxy with `rejectUnauthorized: false`. Ensure you're on the corporate network or VPN.
-
----
-
-### Rate Limiting
-
-**Error:** `429 Too Many Requests`
 
 **Solution:**
-- Xray Standard: 300 requests per 5 minutes
-- Xray Enterprise: 1000 requests per 5 minutes
-
-Add delays between requests:
-```javascript
-await new Promise(resolve => setTimeout(resolve, 1000)); // 1 second delay
+Ensure your `.env` file exists and contains all required variables:
+```env
+XRAY_ID=your_client_id
+XRAY_SECRET=your_client_secret
+JIRA_PROJECT_KEY=PROJ
+JIRA_URL=https://your-company.atlassian.net
+JIRA_API_TOKEN=your_token
+JIRA_EMAIL=your.email@company.com
 ```
 
 ---
 
-### Permission Errors
+#### Issue 2: "User authentication mismatch"
 
-**Error:** `You do not have permission to create issues in this project`
+**Error:**
+```
+Xray user authentication mismatch detected
+```
 
-**Solutions:**
-1. Verify you have "Create Issues" permission in the JIRA project
-2. Ensure you have Xray license assigned  
-3. Check project settings allow Test and Test Execution issue types
-4. Contact your JIRA administrator
+**Solution:**
+Ensure the Xray API Key and Jira API Token were created by the **same user**. The `JIRA_EMAIL` must match the user who created both credentials.
 
 ---
 
-## Development
+#### Issue 3: "issueId provided is not valid"
 
-### Local Development Setup
-
-```bash
-# Clone repository
-git clone https://dev.azure.com/OMEngineering/API%20COE/_git/xray-test-generator
-cd xray-test-generator
-
-# Install dependencies
-npm install
-
-# Create .env file
-cp .env.example .env
-# Edit .env with your credentials
-
-# Run locally
-npm start
+**Error:**
+```
+GraphQL errors: issueId provided is not valid
 ```
 
-### Running Tests Locally
-
-```bash
-# Create sample tests
-npm start
-
-# Link existing tests
-npm run link
-```
-
-### Project Structure
-
-```
-xray-test-generator/
-├── .env                    # Environment variables (DO NOT COMMIT)
-├── .env.example            # Environment template
-├── .gitignore              # Git ignore rules
-├── .npmignore              # NPM publish ignore rules
-├── .npmrc.example          # NPM registry auth template
-├── package.json            # Package configuration
-├── README.md               # This file
-├── index.js                # Core module (main export)
-├── createXrayTest.js       # CLI entry point
-├── tests.json              # Test definitions (INPUT)
-├── xray-mapping.json       # Test mappings (OUTPUT)
-└── scripts/
-    ├── linkTests.js        # Manual linking script
-    └── link-tests.json     # Link configuration
-```
+**Solution:**
+This is a timing issue. The package automatically retries with exponential backoff. If it persists, increase the delay in `index.js` or contact support.
 
 ---
 
-## Publishing
+#### Issue 4: Rate Limiting
 
-### For Package Maintainers
+**Error:**
+```
+429 Too Many Requests
+```
 
-#### Prerequisites
-1. Access to Old Mutual Azure Artifacts feed
-2. Personal Access Token (PAT) with Packaging permissions
-3. `.npmrc` configured with authentication
-
-#### Steps to Publish
-
-1. **Update version in package.json:**
-   ```json
-   {
-     "version": "1.1.0"
-   }
-   ```
-
-2. **Commit changes:**
-   ```bash
-   git add package.json
-   git commit -m "chore: bump version to 1.1.0"
-   git push
-   ```
-
-3. **Publish to Azure Artifacts:**
-   ```bash
-   npm publish
-   ```
-
-4. **Create Git tag:**
-   ```bash
-   git tag v1.1.0  
-   git push --tags
-   ```
-
-#### Versioning Guidelines
-
-Follow [Semantic Versioning](https://semver.org/):
-
-- **Major** (x.0.0): Breaking changes
-- **Minor** (1.x.0): New features, backwards compatible
-- **Patch** (1.0.x): Bug fixes
+**Solution:**
+The package includes built-in rate limiting (300ms between requests). If you're still hitting limits, reduce the number of tests created in a single batch.
 
 ---
 
-## Support
+## Contributing
 
-### Getting Help
+Contributions are welcome! Please follow these steps:
 
-1. **Check this README** for common issues and solutions
-2. **Review `.env.example`** to verify configuration format
-3. **Check JIRA permissions** - ensure you can create Tests manually
-4. **Review error messages** - they often include specific solutions
-5. **Check Azure DevOps** for pipeline logs (if using CI/CD)
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-### Contact
-
-| Issue Type | Contact |
-|------------|---------|
-| **Package bugs** | Create issue in Azure DevOps repository |
-| **Feature requests** | Create issue in Azure DevOps repository |
-| **JIRA/Xray access** | Contact JIRA administrators |
-| **General questions** | Platform Engineering team |
-
-### Useful Links
-
-- [Xray Cloud Documentation](https://docs.getxray.app/display/XRAYCLOUD)
-- [Xray GraphQL API Reference](https://us.xray.cloud.getxray.app/doc/graphql/)
-- [JIRA REST API Documentation](https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/)
-- [Atlassian API Tokens](https://id.atlassian.com/manage-profile/security/api-tokens)
+Please ensure your code:
+- Follows existing code style
+- Includes appropriate tests
+- Updates documentation as needed
 
 ---
 
 ## License
 
-**UNLICENSED** - Internal use only within Old Mutual organization.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Changelog
+## Support
 
-### v1.0.0 (2026-02-06)
-
-**Features:**
-- ✅ Automated test type support (Automated, Manual, Generic, Cucumber)
-- ✅ GraphQL API integration for test steps
-- ✅ Incremental mapping file saves
-- ✅ Comprehensive error handling and logging
-- ✅ Support for Xray data residency (US/EU/AU)
-- ✅ CI/CD pipeline integration examples
-- ✅ Complete API documentation
-
-**Bug Fixes:**
-- Fixed GraphQL mutation syntax for `updateTestType` and `addTestStep`
-- Added missing `path` module import
-- Improved error messages with detailed GraphQL errors  
-- Fixed `.npmrc` template format
-
-**Documentation:**
-- Complete README with examples
-- CI/CD integration guides
-- Comprehensive API reference
-- Troubleshooting section
+- **Issues:** [GitHub Issues](https://github.com/muhaymien96/xray-test-automation/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/muhaymien96/xray-test-automation/discussions)
+- **Documentation:** [README](README.md)
 
 ---
 
-**Maintained by:** Old Mutual Platform Engineering  
-**Package:** `@oldmutual/xray-test-automation`  
-**Version:** 1.0.0  
-**For:** All Old Mutual teams (API, QA, DevOps, Product, Security, Data, Integration)
+## Acknowledgments
+
+- Built for the Xray Cloud community
+- Inspired by the need for faster test case creation
+- Thanks to all contributors and users
+
+---
+
+**Made with ❤️ for the QA community**
