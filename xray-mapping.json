@@ -1,0 +1,38 @@
+{
+  "TC-DeathClaimsPortfolioAPI-200-JSON-Success": {
+    "key": "APIEE-6933",
+    "id": "1865623"
+  },
+  "TC-DeathClaimsPortfolioAPI-ClientNo-Pattern-Valid": {
+    "key": "APIEE-6934",
+    "id": "1865627"
+  },
+  "TC-DeathClaimsPortfolioAPI-ClientNo-Invalid-Length": {
+    "key": "APIEE-6935",
+    "id": "1865628"
+  },
+  "TC-DeathClaimsPortfolioAPI-ClientNo-Invalid-NonNumeric": {
+    "key": "APIEE-6936",
+    "id": "1865630"
+  },
+  "TC-DeathClaimsPortfolioAPI-200-OctetStream": {
+    "key": "APIEE-6937",
+    "id": "1865632"
+  },
+  "TC-DeathClaimsPortfolioAPI-ED43Response-Constraints": {
+    "key": "APIEE-6938",
+    "id": "1865633"
+  },
+  "TC-DeathClaimsPortfolioAPI-400-ErrorResponse-Schema": {
+    "key": "APIEE-6939",
+    "id": "1865635"
+  },
+  "TC-DeathClaimsPortfolioAPI-500-ErrorResponse-Schema": {
+    "key": "APIEE-6940",
+    "id": "1865636"
+  },
+  "_testexecution": {
+    "key": "APIEE-6941",
+    "id": "1865637"
+  }
+}

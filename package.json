@@ -1,0 +1,52 @@
+{
+  "name": "@oldmutual/xray-test-automation",
+  "version": "1.0.0",
+  "description": "Automated Xray test case creation and execution management for Old Mutual JIRA projects. Supports automated test type creation with steps, test executions, and CI/CD pipeline integration.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node createXrayTest.js",
+    "create": "node createXrayTest.js",
+    "link": "node scripts/linkTests.js",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "xray",
+    "jira",
+    "testing",
+    "automation",
+    "oldmutual",
+    "test-management",
+    "ci-cd",
+    "quality-assurance",
+    "xray-cloud",
+    "test-automation",
+    "jira-integration"
+  ],
+  "author": "Old Mutual API COE <api-coe@oldmutual.com>",
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "https://dev.azure.com/OMEngineering/API%20COE/_git/xray-test-generator"
+  },
+  "bugs": {
+    "url": "https://dev.azure.com/OMEngineering/API%20COE/_git/xray-test-generator/issues"
+  },
+  "homepage": "https://dev.azure.com/OMEngineering/API%20COE/_git/xray-test-generator",
+  "dependencies": {
+    "axios": "^1.13.4",
+    "dotenv": "^17.2.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "files": [
+    "index.js",
+    "createXrayTest.js",
+    "scripts/",
+    "README.md",
+    ".env.example",
+    ".npmrc.example"
+  ]
+}

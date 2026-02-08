@@ -1,0 +1,136 @@
+{
+  "testExecution": {
+    "summary": "Death Claims Portfolio API – Regression Test Execution",
+    "description": "Automated regression test execution for the Death_Claims_Portfolio_API covering valid/invalid clientNo scenarios, response schema validation, and error handling."
+  },
+  "tests": [
+    {
+      "test_id": "TC-DeathClaimsPortfolioAPI-200-JSON-Success",
+      "xray": {
+        "summary": "Return ED43 portfolio in JSON for valid clientNo",
+        "description": "Verifies that the Death_Claims_Portfolio_API returns a 200 OK response with an ED43Response JSON payload when a valid 9-digit clientNo is supplied. Preconditions: API is deployed and accessible at the configured base URL.",
+        "priority": "High",
+        "labels": ["API", "GET", "Portfolio", "ED43", "DeathClaims"],
+        "steps": [
+          {
+            "action": "Send a GET request to /v1/death-claims/portfolio/000123456 with header Accept: application/json.",
+            "data": "method=GET; path=/v1/death-claims/portfolio/000123456; headers: Accept=application/json",
+            "expected_result": "API responds with HTTP 200 and a JSON body matching the ED43Response schema (generalError, numEntries, numClientsProcessed, entries[] with ED43Entry objects)."
+          }
+        ]
+      }
+    },
+    {
+      "test_id": "TC-DeathClaimsPortfolioAPI-ClientNo-Pattern-Valid",
+      "xray": {
+        "summary": "Accept 9-digit numeric clientNo and preserve leading zeros",
+        "description": "Verifies that the clientNo path parameter accepts exactly 9 numeric digits and that leading zeros are preserved in the response entries. Preconditions: Test data exists for clientNo=001234567, or API returns an empty portfolio while preserving clientNo format.",
+        "priority": "Medium",
+        "labels": ["API", "GET", "Validation", "PathParam"],
+        "steps": [
+          {
+            "action": "Send a GET request to /v1/death-claims/portfolio/001234567 with Accept: application/json.",
+            "data": "method=GET; path=/v1/death-claims/portfolio/001234567; headers: Accept=application/json",
+            "expected_result": "API responds with 200 OK. Any returned ED43Entry objects contain clientNo=\"001234567\" (leading zeros preserved)."
+          }
+        ]
+      }
+    },
+    {
+      "test_id": "TC-DeathClaimsPortfolioAPI-ClientNo-Invalid-Length",
+      "xray": {
+        "summary": "Reject clientNo not equal to 9 digits",
+        "description": "Verifies that the API returns a 400 Invalid Request with an ErrorResponse payload when clientNo does not conform to the '^\\d{9}$' pattern (e.g., fewer than 9 digits).",
+        "priority": "High",
+        "labels": ["API", "GET", "Validation", "ErrorHandling"],
+        "steps": [
+          {
+            "action": "Send a GET request to /v1/death-claims/portfolio/12345678 (8 digits) with Accept: application/json.",
+            "data": "method=GET; path=/v1/death-claims/portfolio/12345678; headers: Accept=application/json",
+            "expected_result": "API responds with HTTP 400 and an ErrorResponse JSON body that includes fields: type, title, status, detail, timestamp, transactionId. 'status' is 400 and 'detail' describes that clientNo must be 9 characters long."
+          }
+        ]
+      }
+    },
+    {
+      "test_id": "TC-DeathClaimsPortfolioAPI-ClientNo-Invalid-NonNumeric",
+      "xray": {
+        "summary": "Reject clientNo containing non-numeric characters",
+        "description": "Verifies that the API rejects clientNo values that contain non-numeric characters as they break the '^\\d{9}$' pattern and returns an ErrorResponse.",
+        "priority": "Medium",
+        "labels": ["API", "GET", "Validation", "ErrorHandling"],
+        "steps": [
+          {
+            "action": "Send a GET request to /v1/death-claims/portfolio/12345ABCD with Accept: application/json.",
+            "data": "method=GET; path=/v1/death-claims/portfolio/12345ABCD; headers: Accept=application/json",
+            "expected_result": "API responds with 400 Invalid Request and an ErrorResponse JSON body indicating the request is invalid due to clientNo format."
+          }
+        ]
+      }
+    },
+    {
+      "test_id": "TC-DeathClaimsPortfolioAPI-200-OctetStream",
+      "xray": {
+        "summary": "Support binary ED43 portfolio response (application/octet-stream)",
+        "description": "Verifies that the API can return a 200 OK with application/octet-stream content when requested, as defined in the OpenAPI 200 response. Preconditions: API is configured to support binary ED43 responses when Accept: application/octet-stream is provided.",
+        "priority": "Medium",
+        "labels": ["API", "GET", "BinaryResponse", "OctetStream"],
+        "steps": [
+          {
+            "action": "Send a GET request to /v1/death-claims/portfolio/000123456 with Accept: application/octet-stream.",
+            "data": "method=GET; path=/v1/death-claims/portfolio/000123456; headers: Accept=application/octet-stream",
+            "expected_result": "API responds with HTTP 200 and Content-Type: application/octet-stream, and the body is a binary payload."
+          }
+        ]
+      }
+    },
+    {
+      "test_id": "TC-DeathClaimsPortfolioAPI-ED43Response-Constraints",
+      "xray": {
+        "summary": "Enforce ED43Response field constraints (generalError, numEntries bounds)",
+        "description": "Verifies that the ED43Response object returned in a 200 response respects documented constraints: generalError length is at most 4 characters and numEntries is between 0 and 100 inclusive. Preconditions: API returns ED43Response JSON for the chosen clientNo.",
+        "priority": "Medium",
+        "labels": ["API", "GET", "SchemaValidation", "ED43"],
+        "steps": [
+          {
+            "action": "Send a GET request to /v1/death-claims/portfolio/000123456 with Accept: application/json.",
+            "data": "method=GET; path=/v1/death-claims/portfolio/000123456; headers: Accept=application/json",
+            "expected_result": "API responds with 200 OK and ED43Response JSON where generalError is a string with max length 4 and numEntries is an integer between 0 and 100 inclusive."
+          }
+        ]
+      }
+    },
+    {
+      "test_id": "TC-DeathClaimsPortfolioAPI-400-ErrorResponse-Schema",
+      "xray": {
+        "summary": "400 Invalid request uses standardized ErrorResponse",
+        "description": "Verifies that, for invalid requests (e.g., malformed clientNo), the API returns a 400 response with an ErrorResponse object that includes all required fields.",
+        "priority": "High",
+        "labels": ["API", "GET", "ErrorHandling", "SchemaValidation"],
+        "steps": [
+          {
+            "action": "Send a GET request to /v1/death-claims/portfolio/INVALID with Accept: application/json.",
+            "data": "method=GET; path=/v1/death-claims/portfolio/INVALID; headers: Accept=application/json",
+            "expected_result": "API responds with HTTP 400 and a JSON body containing an ErrorResponse with required fields: type, title, status, detail, timestamp, transactionId."
+          }
+        ]
+      }
+    },
+    {
+      "test_id": "TC-DeathClaimsPortfolioAPI-500-ErrorResponse-Schema",
+      "xray": {
+        "summary": "500 Server error uses standardized ErrorResponse",
+        "description": "Verifies that when the API encounters a server error, it returns HTTP 500 with a body conforming to the ErrorResponse schema. Preconditions: There is a way to provoke or simulate a server-side failure, e.g., via test environment or fault injection.",
+        "priority": "High",
+        "labels": ["API", "GET", "ErrorHandling", "ServerError"],
+        "steps": [
+          {
+            "action": "Trigger a scenario that causes a server error while calling /v1/death-claims/portfolio/000123456 with Accept: application/json.",
+            "data": "method=GET; path=/v1/death-claims/portfolio/000123456; headers: Accept=application/json; test setup induces server-side failure",
+            "expected_result": "API responds with HTTP 500 and ErrorResponse JSON containing type, title, status, detail, timestamp, transactionId, with 'status' equal to 500."
+          }
+        ]
+      }
+    }
+  ]
+}
